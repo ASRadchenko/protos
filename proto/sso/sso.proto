@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "tuzov.sso.v1;ssov1";
+
+service Auth{
+
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+    rpc Login(LoginRequest) returns (LoginResponse);
+
+    rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse);
+
+}
+
+// Сообщение, содержащее детали запроса на регистрацию.
+message RegisterRequest {
+  // Email адрес пользователя.
+  string email = 1;
+  // Пароль для учетной записи пользователя.
+  string password = 2;
+}
+
+// Сообщение, содержащее детали ответа на регистрацию.
+message RegisterResponse {
+  // Уникальный идентификатор вновь зарегистрированного пользователя.
+  int64 user_id = 1;
+}
+
+// Сообщение, содержащее детали запроса на вход в систему.
+message LoginRequest {
+  // Email адрес пользователя.
+  string email = 1;
+  // Пароль для учетной записи пользователя.
+  string password = 2;
+  // Идентификатор приложения.
+  int32 app_id = 3;
+}
+
+// Сообщение, содержащее детали ответа на вход в систему.
+message LoginResponse {
+  // Токен аутентификации для пользователя.
+  string token = 1;
+}
+
+
+message IsAdminRequest {
+
+  int64 user_id = 1;
+}
+
+message IsAdminResponse {
+
+  bool is_admin = 1;
+}
+
